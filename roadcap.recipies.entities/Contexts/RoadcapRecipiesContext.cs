@@ -19,15 +19,6 @@ namespace roadcap.recipes.entities.Contexts
         public virtual DbSet<Ingredient> Ingredients { get; set; }
         public virtual DbSet<Recipe> Recipes { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                // normally would store connection string as user secrets or environment variable, but it's localdb and integrated security - no big deal
-                optionsBuilder.UseSqlServer("Data Source=(localdb)\\ProjectsV13;Initial Catalog=roadcap.recipes;Integrated Security=True;MultipleActiveResultSets=true;");
-            }
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Ingredient>(entity =>

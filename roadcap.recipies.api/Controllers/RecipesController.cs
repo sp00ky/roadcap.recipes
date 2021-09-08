@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using roadcap.recipes.entities.Contexts;
+using roadcap.recipes.entities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,81 +10,96 @@ using System.Threading.Tasks;
 
 namespace roadcap.recipes.api.Controllers
 {
+    [Route("api/[controller]")]
     public class RecipesController : Controller
     {
-        // GET: RecipesController
-        public ActionResult Index()
+        private RoadcapRecipiesContext _context;
+
+        public RecipesController(RoadcapRecipiesContext context)
         {
-            return View();
+            this._context = context;
         }
 
-        // GET: RecipesController/Details/5
-        public ActionResult Details(int id)
+        // GET: api/Recipes
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Recipe>>> GetRecipes()
         {
-            return View();
+            return await _context.Recipes.ToListAsync();
         }
 
-        // GET: RecipesController/Create
-        public ActionResult Create()
+        // GET: api/Recipes/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Recipe>> GetRecipe(int id)
         {
-            return View();
+            var recipe = await _context.Recipes.FindAsync(id);
+
+            if (recipe == null)
+            {
+                return NotFound();
+            }
+
+            return recipe;
         }
 
-        // POST: RecipesController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        // PUT: api/Recipes/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutRecipe(int id, Recipe recipe)
         {
+            if (id != recipe.RecipeId)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(recipe).State = EntityState.Modified;
+
             try
             {
-                return RedirectToAction(nameof(Index));
+                await _context.SaveChangesAsync();
             }
-            catch
+            catch (DbUpdateConcurrencyException)
             {
-                return View();
+                if (!RecipeExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
             }
+
+            return NoContent();
         }
 
-        // GET: RecipesController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: RecipesController/Edit/5
+        // POST: api/Recipes
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult<Recipe>> PostRecipe(Recipe recipe)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _context.Recipes.Add(recipe);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetRecipe", new { id = recipe.RecipeId }, recipe);
         }
 
-        // GET: RecipesController/Delete/5
-        public ActionResult Delete(int id)
+        // DELETE: api/Recipes/5
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Recipe>> DeleteRecipe(int id)
         {
-            return View();
+            var recipe = await _context.Recipes.FindAsync(id);
+            if (recipe == null)
+            {
+                return NotFound();
+            }
+
+            _context.Recipes.Remove(recipe);
+            await _context.SaveChangesAsync();
+
+            return recipe;
         }
 
-        // POST: RecipesController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        private bool RecipeExists(int id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return _context.Recipes.Any(e => e.RecipeId == id);
         }
     }
 }
