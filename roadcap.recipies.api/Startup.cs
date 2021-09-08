@@ -1,17 +1,10 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using roadcap.recipes.entities.Contexts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace roadcap.recipes.api
 {
@@ -24,10 +17,22 @@ namespace roadcap.recipes.api
 
         public IConfiguration Configuration { get; }
 
+        readonly string localHostOrigin = "AllowLocalhost";
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // connection string already configured
+            // Create a policy to allow any localhost app to access this service
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: localHostOrigin,
+                builder =>
+                {
+                    builder.WithOrigins("https://localhost");
+                });
+            });
+
+            // Typically would store in user secrets or environment var.  But... we're using localdb and integrated security, so no worries
             services.AddDbContext<RoadcapRecipiesContext>(options => options.UseSqlServer("Data Source=(localdb)\\ProjectsV13;Initial Catalog=roadcap.recipes;Integrated Security=True;MultipleActiveResultSets=true;"));
             services.AddControllers();
         }
@@ -43,6 +48,8 @@ namespace roadcap.recipes.api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(localHostOrigin);
 
             app.UseAuthorization();
 
