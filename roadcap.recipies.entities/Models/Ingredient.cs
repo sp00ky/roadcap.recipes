@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace roadcap.recipies.entities.Models
+namespace roadcap.recipes.entities.Models
 {
     [Table("ingredient")]
     public partial class Ingredient

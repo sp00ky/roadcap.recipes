@@ -1,6 +1,6 @@
 using System;
 
-namespace roadcap.recipies.Models
+namespace roadcap.recipes.Models
 {
     public class ErrorViewModel
     {

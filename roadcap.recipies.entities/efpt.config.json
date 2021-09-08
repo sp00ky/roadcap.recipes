@@ -7,7 +7,7 @@
    "ModelNamespace": null,
    "OutputContextPath": "Contexts",
    "OutputPath": "Models",
-   "ProjectRootNamespace": "roadcap.recipies.entities",
+   "ProjectRootNamespace": "roadcap.recipes.entities",
    "Schemas": null,
    "SelectedHandlebarsLanguage": 0,
    "SelectedToBeGenerated": 0,

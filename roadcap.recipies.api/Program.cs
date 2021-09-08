@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace roadcap.recipies.api
+namespace roadcap.recipes.api
 {
     public class Program
     {

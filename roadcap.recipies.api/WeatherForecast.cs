@@ -1,6 +1,6 @@
 using System;
 
-namespace roadcap.recipies.api
+namespace roadcap.recipes.api
 {
     public class WeatherForecast
     {

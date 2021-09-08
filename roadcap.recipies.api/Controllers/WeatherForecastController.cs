@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace roadcap.recipies.api.Controllers
+namespace roadcap.recipes.api.Controllers
 {
     [ApiController]
     [Route("[controller]")]

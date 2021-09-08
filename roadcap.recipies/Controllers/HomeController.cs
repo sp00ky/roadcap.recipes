@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using roadcap.recipies.Models;
+using roadcap.recipes.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace roadcap.recipies.Controllers
+namespace roadcap.recipes.Controllers
 {
     public class HomeController : Controller
     {

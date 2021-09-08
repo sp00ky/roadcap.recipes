@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "roadcap.recipies.api": {
+    "roadcap.recipes.api": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "weatherforecast",
