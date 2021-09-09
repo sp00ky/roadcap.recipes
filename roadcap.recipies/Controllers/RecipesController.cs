@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using roadcap.recipes.business;
 
 namespace roadcap.recipes.Controllers
 {
@@ -67,6 +68,10 @@ namespace roadcap.recipes.Controllers
         {
             try
             {
+                // Apply business rules
+                var businessRule = new ABusinessRule();
+                recipe = businessRule.DoSomethingBusinessy(recipe);
+
                 _context.Update(recipe);
                 await _context.SaveChangesAsync();
                 TempData["alert"] = "Success";
@@ -96,6 +101,10 @@ namespace roadcap.recipes.Controllers
         {
             try
             {
+                // Apply business rules
+                var businessRule = new ABusinessRule();
+                recipe = businessRule.DoSomethingBusinessy(recipe);
+
                 _context.Add(recipe);
                 await _context.SaveChangesAsync();
                 TempData["alert"] = "Success";

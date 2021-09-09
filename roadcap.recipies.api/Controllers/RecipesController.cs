@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using roadcap.recipes.business;
 using roadcap.recipes.entities.Contexts;
 using roadcap.recipes.entities.Models;
 using System;
@@ -50,6 +51,10 @@ namespace roadcap.recipes.api.Controllers
                 return BadRequest();
             }
 
+            // Apply business rules
+            var businessRule = new ABusinessRule();
+            recipe = businessRule.DoSomethingBusinessy(recipe);
+
             _context.Entry(recipe).State = EntityState.Modified;
 
             try
@@ -75,6 +80,10 @@ namespace roadcap.recipes.api.Controllers
         [HttpPost]
         public async Task<ActionResult<Recipe>> PostRecipe(Recipe recipe)
         {
+            // Apply business rules
+            var businessRule = new ABusinessRule();
+            recipe = businessRule.DoSomethingBusinessy(recipe);
+
             _context.Recipes.Add(recipe);
             await _context.SaveChangesAsync();
 

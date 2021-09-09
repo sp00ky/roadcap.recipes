@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\roadcap.recipies.entities\roadcap.recipes.entities.csproj" />
+  </ItemGroup>
+
 </Project>
