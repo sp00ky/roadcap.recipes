@@ -8,8 +8,9 @@
 
 <div class="row justify-content-center align-items-center">
     <div class="col-12 col-md-10 col-lg-8">
-        <img src='@Url.Action("GetImage", new { id = Model.RecipeId })' />
-
+        <img src='@Url.Action("GetImage", new { id = Model.RecipeId })' style="max-width: 400px;" />
+        <br />
+        <br />
         <form asp-controller="Recipes" asp-action="@action" method="post" enctype="multipart/form-data">
             <input type="hidden" asp-for="RecipeId" />
             <div class="form-group">

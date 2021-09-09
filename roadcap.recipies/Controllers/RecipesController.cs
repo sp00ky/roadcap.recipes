@@ -85,7 +85,7 @@ namespace roadcap.recipes.Controllers
                 else
                 {
                     // make sure we don't write over the old image
-                    var tempRecipe = _context.Recipes.FirstOrDefault(r => r.RecipeId == recipe.RecipeId);
+                    var tempRecipe = _context.Recipes.AsNoTracking().FirstOrDefault(r => r.RecipeId == recipe.RecipeId);
                     recipe.Image = tempRecipe.Image;
                 }
 
