@@ -14,4 +14,4 @@ SQL Server project with implementation of Recipe and Ingredient tables.  Typical
 \
 \
 \
-Note - Currently the image handling will only work with jpegs.  
+Note - Currently the image handling will only work with pngs and jpegs.  
