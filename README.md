@@ -10,6 +10,6 @@ Business rules.  Only a class containing a single empty rule exists.
 ### roadcap.recipes.entities
 EF Core entities and dbContext
 ### roadcap.recipes.sql
-SQL Server project with implementation of Recipe and Ingredient tables
+SQL Server project with implementation of Recipe and Ingredient tables.  Typically I don't use EF migrations in production.  In order to create the database, publish this project.
 
 Note - Currently the image handling will only work with jpegs.  
