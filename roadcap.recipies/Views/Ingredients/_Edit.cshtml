@@ -1,0 +1,40 @@
+﻿@using roadcap.recipes.entities.Models
+
+@model Ingredient
+
+@{
+    ViewData["Title"] = "Edit Recipe";
+    var action = ViewData["action"] ?? "Edit";
+}
+
+    <div class="row justify-content-center align-items-center">
+        <div class="col-12 col-md-10 col-lg-8">
+
+            <form asp-controller="Ingredients" asp-action="@action" method="post">
+                <input type="hidden" asp-for="IngredientId" />
+                <input type="hidden" asp-for="RecipeId" />
+                <div class="form-group">
+                    <label asp-for="IngredientName"></label>
+                    <input asp-for="IngredientName" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Amount"></label>
+                    <input asp-for="Amount" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Units"></label>
+                    <input asp-for="Units" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="SpecialInstructions"></label>
+                    <input asp-for="SpecialInstructions" class="form-control" />
+                </div>
+
+                <button type="submit" class="btn btn-success">Save</button>
+                <button type="reset" class="btn btn-danger">Reset</button>
+            </form>
+        </div>
+    </div>

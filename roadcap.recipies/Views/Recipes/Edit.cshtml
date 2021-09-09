@@ -5,77 +5,53 @@
 @{
     ViewData["Title"] = "Edit Recipe";
     var alert = ViewData["alert"] as string;
+    var action = ViewData["action"] ?? "Edit";
 }
 
 <div class="container body-drop h100">
-    <div class="row justify-content-center align-items-center">
-        <div class="col-12 col-md-10 col-lg-8">
-
-            <form asp-controller="Recipes" asp-action="Edit" method="post">
-                <input type="hidden" asp-for="RecipeId" />
-                <div class="form-group">
-                    <label asp-for="Title"></label>
-                    <input asp-for="Title" class="form-control" />
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="Description"></label>
-                    <input asp-for="Description" class="form-control" />
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="Instructions"></label>
-                    <textarea asp-for="Instructions" class="form-control" rows="10"></textarea>
-                </div>
-
-                <button type="submit" class="btn btn-success">Save</button>
-                <button type="reset" class="btn btn-danger">Reset</button>
-            </form>
-        </div>
-    </div>
+    <partial name="_Edit.cshtml" model="Model" view-data="ViewData" />
     <div class="row">&nbsp;</div>
     <div class="row justify-content-center align-items-center">
 
         <div class="col-12 col-md-10 col-lg-8">
-            <div class="card">
-                <div class="card-body">
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>
-                                    Ingredient
-                                </th>
-                                <th>
-                                    Amount
-                                </th>
-                                <th>
-                                    Instructions
-                                </th>
-                                <th></th>
+            <div class="row"><a asp-action="Add" asp-controller="Ingredients" asp-route-id="@Model.RecipeId">New Ingredient</a></div>
+            <div class="row">
+                <table id="ingredientsTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                Ingredient
+                            </th>
+                            <th>
+                                Amount
+                            </th>
+                            <th>
+                                Instructions
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Ingredients)
+                        {
+                            <tr id="@("row" + item.IngredientId)">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IngredientName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Amount) @Html.DisplayFor(modelItem => item.Units)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SpecialInstructions)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-controller="Ingredients" asp-route-id="@item.IngredientId">Edit</a> |
+                                    <a id="deleteLink" href="javascript:void(0);" onclick="deleteIngredient(@item.IngredientId)">Delete</a>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model.Ingredients)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.IngredientName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Amount) @Html.DisplayFor(modelItem => item.Units)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.SpecialInstructions)
-                                    </td>
-                                    <td>
-                                        <a asp-action="Edit" asp-controller="Ingredients" asp-route-id="@item.IngredientId">Edit</a> |
-                                        <a asp-action="Delete" asp-controller="Ingredients" asp-route-id="@item.IngredientId">Delete</a>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>    
     </div>
@@ -109,10 +85,21 @@ else if (alert == "Failed")
     </div>
 }
 
-
 @section Scripts
 {
     <script>
-        $('.toast').toast('show');
+        function deleteIngredient(id) {
+            var r = confirm('Are you sure you want to delete this ingredient?');
+            if (r == true) {
+                $.ajax({
+                    url: 'https://localhost:44356/api/Ingredients/' + id,
+                    method: 'DELETE',
+                    success: function (data) {
+                        //window.location.href = '@Url.Action("Edit", "Recipes", new { id = Model.RecipeId })';
+                        $('table#ingredientsTable tr#row' + id).remove();
+                    }
+                });
+            }
+        }
     </script>
-}
+} 

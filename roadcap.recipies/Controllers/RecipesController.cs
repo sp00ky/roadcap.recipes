@@ -24,7 +24,7 @@ namespace roadcap.recipes.Controllers
         }
 
         [HttpGet]
-        public IActionResult Find(string searchTerm)
+        public async Task<IActionResult> Find(string searchTerm)
         {
             if (TempData["alert"] != null)
             {
@@ -38,11 +38,11 @@ namespace roadcap.recipes.Controllers
             }
             else
             {
-                results = this._context.Recipes.Where(r =>
+                results = await this._context.Recipes.Where(r =>
                     r.Title.Contains(searchTerm) ||
                     r.Description.Contains(searchTerm) ||
                     r.Ingredients.Any(i => i.IngredientName.Contains(searchTerm))
-                );
+                ).ToListAsync();
             }
 
             ViewData["searchTerm"] = searchTerm;
@@ -50,9 +50,9 @@ namespace roadcap.recipes.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var recipe = _context.Recipes.Include(r => r.Ingredients).FirstOrDefault(r => r.RecipeId == id);
+            var recipe = await _context.Recipes.Include(r => r.Ingredients).FirstOrDefaultAsync(r => r.RecipeId == id);
 
             if (TempData["alert"] != null)
             {
@@ -80,5 +80,35 @@ namespace roadcap.recipes.Controllers
 
             return RedirectToAction("Edit", new { id = recipe.RecipeId });
         }
+
+        [HttpGet]
+        public IActionResult Add(int id)
+        {
+            var recipe = new Recipe();
+
+            ViewData["action"] = "Add";
+
+            return View("Add", recipe);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(Recipe recipe)
+        {
+            try
+            {
+                _context.Add(recipe);
+                await _context.SaveChangesAsync();
+                TempData["alert"] = "Success";
+            }
+            catch (Exception ex)
+            {
+                TempData["alert"] = "Failed";
+
+                // log exception
+            }
+
+            return RedirectToAction("Edit", new { id = recipe.RecipeId });
+        }
+
     }
 }

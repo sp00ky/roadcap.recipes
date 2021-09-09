@@ -55,5 +55,40 @@ namespace roadcap.recipes.Controllers
             return RedirectToAction("Edit", "Recipes", new { id = ingredient.RecipeId });
         }
 
+        [HttpGet]
+        public IActionResult Add(int id)
+        {
+            var ingredient = new Ingredient { RecipeId = id };
+
+            ViewData["action"] = "Add";
+
+            return View(ingredient);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(Ingredient ingredient)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewData["alert"] = "Failed";
+                ViewData["action"] = "Add";
+                return View(ingredient);
+            }
+
+            try
+            {
+                _context.Add(ingredient);
+                await _context.SaveChangesAsync();
+                TempData["alert"] = "Success";
+            }
+            catch (Exception ex)
+            {
+                TempData["alert"] = "Failed";
+
+                // log exception
+            }
+
+            return RedirectToAction("Edit", "Recipes", new { id = ingredient.RecipeId });
+        }
     }
 }

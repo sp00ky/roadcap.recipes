@@ -25,10 +25,11 @@ namespace roadcap.recipes.api
             // Create a policy to allow any localhost app to access this service
             services.AddCors(options =>
             {
-                options.AddPolicy(name: localHostOrigin,
-                builder =>
+                options.AddPolicy(localHostOrigin, builder =>
                 {
-                    builder.WithOrigins("https://localhost");
+                    builder.WithOrigins("https://localhost:44308");
+                    builder.AllowAnyMethod();
+                    builder.AllowAnyHeader();
                 });
             });
 
@@ -38,12 +39,14 @@ namespace roadcap.recipes.api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, RoadcapRecipesContext context)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            context.Database.EnsureCreated();
 
             app.UseHttpsRedirection();
 

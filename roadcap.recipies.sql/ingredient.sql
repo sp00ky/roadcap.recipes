@@ -6,5 +6,5 @@
 	[amount] DECIMAL(6, 2) NOT NULL DEFAULT(1),
 	[units] NVARCHAR(15) NULL,
 	[special_instructions] NVARCHAR(255) NULL, 
-    CONSTRAINT [FK_ingredient__recipe] FOREIGN KEY ([recipe_id]) REFERENCES [recipe]([recipe_id])
+    CONSTRAINT [FK_ingredient__recipe] FOREIGN KEY ([recipe_id]) REFERENCES [recipe]([recipe_id]) ON DELETE CASCADE
 )
