@@ -12,4 +12,4 @@ EF Core entities and dbContext
 ### roadcap.recipes.sql
 SQL Server project with implementation of Recipe and Ingredient tables
 
-## Project Requirements
+Note - Currently the image handling will only work with jpegs.  
