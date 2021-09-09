@@ -5,13 +5,13 @@ using roadcap.recipes.entities.Models;
 
 namespace roadcap.recipes.entities.Contexts
 {
-    public partial class RoadcapRecipiesContext : DbContext
+    public partial class RoadcapRecipesContext : DbContext
     {
-        public RoadcapRecipiesContext()
+        public RoadcapRecipesContext()
         {
         }
 
-        public RoadcapRecipiesContext(DbContextOptions<RoadcapRecipiesContext> options)
+        public RoadcapRecipesContext(DbContextOptions<RoadcapRecipesContext> options)
             : base(options)
         {
         }

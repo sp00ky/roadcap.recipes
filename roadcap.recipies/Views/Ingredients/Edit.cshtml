@@ -1,0 +1,79 @@
+﻿@using roadcap.recipes.entities.Models
+
+@model Ingredient
+
+@{
+    ViewData["Title"] = "Edit Recipe";
+    var alert = ViewData["alert"] as string;
+}
+
+<div class="container body-drop h100">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-12 col-md-10 col-lg-8">
+
+            <form asp-controller="Ingredients" asp-action="Edit" method="post">
+                <input type="hidden" asp-for="IngredientId" />
+                <input type="hidden" asp-for="RecipeId" />
+                <div class="form-group">
+                    <label asp-for="IngredientName"></label>
+                    <input asp-for="IngredientName" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Amount"></label>
+                    <input asp-for="Amount" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Units"></label>
+                    <input asp-for="Units" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="SpecialInstructions"></label>
+                    <textarea asp-for="SpecialInstructions" class="form-control" rows="10"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-success">Save</button>
+                <button type="reset" class="btn btn-danger">Reset</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@if (alert == "Success")
+{
+    <div class="toast" data-delay="3000" role="alert" aria-live="assertive" aria-atomic="true" style="position: absolute; top: 70px; right: 10px;">
+        <div class="toast-header">
+            <strong class="mr-auto">Success!</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body bg-success text-white">
+            Recipe saved successfully!
+        </div>
+    </div>
+}
+else if (alert == "Failed")
+{
+    <div class="toast" data-delay="3000" role="alert" aria-live="assertive" aria-atomic="true" style="position: absolute; top: 70px; right: 10px;">
+        <div class="toast-header">
+            <strong class="mr-auto">Failed!</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body bg-danger text-white">
+            Recipe failed to save!
+        </div>
+    </div>
+}
+
+
+@section Scripts
+{
+    <script>
+        $('.toast').toast('show');
+    </script>
+}

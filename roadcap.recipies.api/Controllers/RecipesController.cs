@@ -13,9 +13,9 @@ namespace roadcap.recipes.api.Controllers
     [Route("api/[controller]")]
     public class RecipesController : Controller
     {
-        private RoadcapRecipiesContext _context;
+        private RoadcapRecipesContext _context;
 
-        public RecipesController(RoadcapRecipiesContext context)
+        public RecipesController(RoadcapRecipesContext context)
         {
             this._context = context;
         }

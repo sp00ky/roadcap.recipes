@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - roadcap.recipes</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
@@ -20,7 +21,7 @@
             <ul class="navbar-nav mr-4">
 
                 <li class="nav-item">
-                    <a class="nav-link" data-value="about" href="#">Recipes</a>
+                    @Html.ActionLink("Recipes", "Index", "Recipes", new { searchTerm = string.Empty }, new { @class = "nav-link" })
                 </li>
                 <li class="nav-item">
                     <a class="nav-link " data-value="portfolio" href="#">Ingredients</a>
@@ -30,7 +31,9 @@
         </div>
     </nav>
 
-    @RenderBody()
+    <div class="render-body">
+        @RenderBody()
+    </div>
 
     <footer class="footer mt-auto py-3" style="background:#F97300;">
         <div class="container">

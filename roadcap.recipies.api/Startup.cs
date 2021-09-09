@@ -33,7 +33,7 @@ namespace roadcap.recipes.api
             });
 
             // Typically would store in user secrets or environment var.  But... we're using localdb and integrated security, so no worries
-            services.AddDbContext<RoadcapRecipiesContext>(options => options.UseSqlServer("Data Source=(localdb)\\ProjectsV13;Initial Catalog=roadcap.recipes;Integrated Security=True;MultipleActiveResultSets=true;"));
+            services.AddDbContext<RoadcapRecipesContext>(options => options.UseSqlServer("Data Source=(localdb)\\ProjectsV13;Initial Catalog=roadcap.recipes;Integrated Security=True;MultipleActiveResultSets=true;"));
             services.AddControllers();
         }
 

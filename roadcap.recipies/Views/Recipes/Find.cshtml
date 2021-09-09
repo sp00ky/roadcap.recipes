@@ -1,0 +1,103 @@
+﻿@using roadcap.recipes.entities.Models
+@model IEnumerable<Recipe>
+
+@{
+    ViewData["Title"] = "Find Recipes";
+}
+<br />
+<div class="container body-drop h100">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-12 col-md-10 col-lg-8">
+            @using (Html.BeginForm("Find", "Recipes", FormMethod.Get, new { @class = "card card-sm" }))
+            {
+                <div class="card-body row no-gutters align-items-center">
+                    <div class="col-auto">
+                        <i class="fas fa-search h4 text-body"></i>
+                    </div>
+                    <!--end of col-->
+                    <div class="col">
+                        <input class="form-control form-control-lg form-control-borderless" type="search" placeholder="Search recipes or ingredients" name="searchTerm" id="searchTerm" />
+                    </div>
+                    <!--end of col-->
+                    <div class="col-auto">
+                        <button class="btn btn-lg btn-success" type="submit">Search</button>
+                    </div>
+                    <!--end of col-->
+                </div>
+            }
+        </div>
+    </div>
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Instructions)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Instructions)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.RecipeId">Edit</a> |
+                            <a asp-action="Delete" asp-route-id="@item.RecipeId">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@*<div class="modal" id="editor" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                Edit Recipe
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function editRecipe(recipeId) {
+        $.ajax({
+            url: '/Recipes/Edit/' + recipeId,
+            contentType: 'application/html; charset=utf-8',
+            type: 'GET',
+            dataType: 'html'
+        })
+        .done(function (result) {
+            $('#editor').html(result);
+            $('#editor').modal('show');
+        })
+        .fail(function (xhr, status) {
+            alert(status);
+        })  
+
+        return false;
+    }
+
+    function deleteRecipe(recipeId) {
+        return false;
+    }
+</script>*@

@@ -16,6 +16,24 @@ html, h1, h2, h3, h4, h5, h6, a {
     background: #F97300;
 }
 
+.render-body {
+    padding-top: 56px;
+}
+
+.body-drop {
+    padding-top: 10px;
+}
+
+.form-control-borderless {
+    border: none;
+}
+
+    .form-control-borderless:hover, .form-control-borderless:active, .form-control-borderless:focus {
+        border: none;
+        outline: none;
+        box-shadow: none;
+    }
+
 .nav-link, .navbar-brand {
     color: #f4f4f4;
     cursor: pointer;

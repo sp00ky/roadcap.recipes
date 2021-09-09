@@ -1,8 +1,34 @@
 ﻿@{
     ViewData["Title"] = "Roadcap Recipes";
 }
-<!-- header -->
-<header class="header">
-    <div class="container">
+<style>
+    h2 {
+        text-align: center;
+    }
+</style>
+
+<!-- site header -->
+<div class="header">
+    <div class="row h-75 justify-content-center align-items-center">
+        <div class="col-12 col-md-10 col-lg-8">
+            <h2>Welcome to Roadcap Recipes!</h2>
+            @using (Html.BeginForm("Find", "Recipes", FormMethod.Get, new { @class = "card card-sm" }))
+            { 
+                <div class="card-body row no-gutters align-items-center">
+                    <div class="col-auto">
+                        <i class="fas fa-search h4 text-body"></i>
+                    </div>
+                    <!--end of col-->
+                    <div class="col">
+                        <input class="form-control form-control-lg form-control-borderless" type="search" placeholder="Search recipes or ingredients" name="searchTerm" id="searchTerm" />
+                    </div>
+                    <!--end of col-->
+                    <div class="col-auto">
+                        <button class="btn btn-lg btn-success" type="submit">Search</button>
+                    </div>
+                    <!--end of col-->
+                </div>
+        }        
+        </div>
     </div>
-</header>
+</div>

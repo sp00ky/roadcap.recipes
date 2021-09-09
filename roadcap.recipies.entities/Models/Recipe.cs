@@ -23,6 +23,10 @@ namespace roadcap.recipes.entities.Models
         [StringLength(50)]
         public string Title { get; set; }
 
+        [Column("description")]
+        [StringLength(1000)]
+        public string Description { get; set; }
+
         [Column("image")]
         public byte[] Image { get; set; }
 
