@@ -8,8 +8,9 @@
 
 <div class="row justify-content-center align-items-center">
     <div class="col-12 col-md-10 col-lg-8">
+        <img src='@Url.Action("GetImage", new { id = Model.RecipeId })' />
 
-        <form asp-controller="Recipes" asp-action="@action" method="post">
+        <form asp-controller="Recipes" asp-action="@action" method="post" enctype="multipart/form-data">
             <input type="hidden" asp-for="RecipeId" />
             <div class="form-group">
                 <label asp-for="Title"></label>
@@ -24,6 +25,11 @@
             <div class="form-group">
                 <label asp-for="Instructions"></label>
                 <textarea asp-for="Instructions" class="form-control" rows="10"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Image"></label>
+                <input asp-for="Image" type="file" />
             </div>
 
             <button type="submit" class="btn btn-success">Save</button>

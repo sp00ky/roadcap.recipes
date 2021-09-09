@@ -7,6 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using roadcap.recipes.business;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace roadcap.recipes.Controllers
 {
@@ -64,13 +66,28 @@ namespace roadcap.recipes.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Recipe recipe)
+        public async Task<IActionResult> Edit(Recipe recipe, IFormFile Image)
         {
             try
             {
                 // Apply business rules
                 var businessRule = new ABusinessRule();
                 recipe = businessRule.DoSomethingBusinessy(recipe);
+
+                if (Image != null && Image.Length > 0)
+                {
+                    using (var ms = new MemoryStream())
+                    {
+                        await Image.CopyToAsync(ms);
+                        recipe.Image = ms.ToArray();
+                    }
+                }
+                else
+                {
+                    // make sure we don't write over the old image
+                    var tempRecipe = _context.Recipes.FirstOrDefault(r => r.RecipeId == recipe.RecipeId);
+                    recipe.Image = tempRecipe.Image;
+                }
 
                 _context.Update(recipe);
                 await _context.SaveChangesAsync();
@@ -119,5 +136,17 @@ namespace roadcap.recipes.Controllers
             return RedirectToAction("Edit", new { id = recipe.RecipeId });
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetImage(int id)
+        {
+            var recipe = await _context.Recipes.Include(r => r.Ingredients).FirstOrDefaultAsync(r => r.RecipeId == id);
+            if (recipe.Image != null && recipe.Image.Length > 0)
+            {
+                var ms = new MemoryStream(recipe.Image);
+                return new FileStreamResult(ms, "image/png");
+            }
+
+            return new EmptyResult();
+        }
     }
 }

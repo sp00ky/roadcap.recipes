@@ -106,6 +106,12 @@ namespace roadcap.recipes.api.Controllers
             return recipe;
         }
 
+        //[HttpGet]
+        //public async Task<FileResult> GetImage(int id)
+        //{
+
+        //}
+
         private bool RecipeExists(int id)
         {
             return _context.Recipes.Any(e => e.RecipeId == id);
