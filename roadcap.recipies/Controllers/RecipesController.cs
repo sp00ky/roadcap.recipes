@@ -26,6 +26,11 @@ namespace roadcap.recipes.Controllers
         [HttpGet]
         public IActionResult Find(string searchTerm)
         {
+            if (TempData["alert"] != null)
+            {
+                ViewData["alert"] = TempData["alert"];
+            }
+
             IEnumerable<Recipe> results = null;
             if (searchTerm is null || searchTerm == string.Empty)
             {
