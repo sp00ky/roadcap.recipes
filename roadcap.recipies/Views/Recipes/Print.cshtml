@@ -1,0 +1,64 @@
+﻿@using roadcap.recipes.entities.Models
+
+@model Recipe
+
+@{
+    ViewData["Title"] = "Edit " + Model.Title;
+}
+
+<div class="container body-drop h100">
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <h2>@Html.DisplayFor(m => m.Title)</h2>
+    </div>
+    <div class="row">
+        <img src='@Url.Action("GetImage", new { id = Model.RecipeId })' style="max-width: 400px;" />
+    </div>
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        @Html.DisplayFor(m => m.Description)
+    </div>
+    <div class="row">&nbsp;</div>
+    <div class="row justify-content-center align-items-center">
+
+        <div class="col-md-12">
+            <div class="row">
+                <table id="ingredientsTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                Ingredient
+                            </th>
+                            <th>
+                                Amount
+                            </th>
+                            <th>
+                                Instructions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Ingredients)
+                        {
+                            <tr id="@("row" + item.IngredientId)">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IngredientName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Amount) @Html.DisplayFor(modelItem => item.Units)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SpecialInstructions)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        @Html.DisplayFor(m => m.Instructions)
+    </div>
+    </div>

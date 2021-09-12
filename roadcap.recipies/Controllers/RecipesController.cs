@@ -156,5 +156,13 @@ namespace roadcap.recipes.Controllers
 
             return new EmptyResult();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Print(int id)
+        {
+            var recipe = await _context.Recipes.Include(r => r.Ingredients).FirstOrDefaultAsync(r => r.RecipeId == id);
+
+            return View(recipe);
+        }
     }
 }
