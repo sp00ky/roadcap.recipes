@@ -68,6 +68,14 @@ namespace roadcap.recipes.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(Recipe recipe, IFormFile Image)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewData["action"] = "Add";
+                ViewData["alert"] = "Failed";
+
+                return View("Edit", recipe);
+            }
+
             try
             {
                 // Apply business rules

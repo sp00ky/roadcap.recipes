@@ -39,6 +39,13 @@ namespace roadcap.recipes.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(Ingredient ingredient)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewData["alert"] = "Failed";
+                ViewData["action"] = "Edit";
+                return View(ingredient);
+            }
+
             try
             {
                 _context.Update(ingredient);
