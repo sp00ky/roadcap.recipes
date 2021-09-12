@@ -7,36 +7,45 @@
 }
 
 <div class="row justify-content-center align-items-center">
-    <div class="col-12 col-md-10 col-lg-8">
-        <img src='@Url.Action("GetImage", new { id = Model.RecipeId })' style="max-width: 400px;" />
-        <br />
-        <br />
-        <form asp-controller="Recipes" asp-action="@action" method="post" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly"></div>
-            <input type="hidden" asp-for="RecipeId" />
-            <div class="form-group">
-                <label asp-for="Title"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+    <form asp-controller="Recipes" asp-action="@action" method="post" enctype="multipart/form-data">
+        <div class="card">
+            <div class="card-header">
+                <h4>@Model.Title</h4>
             </div>
+            <div class="card-body pl-5 pr-5">
+                <div class="col-md-12">
+                    <img src='@Url.Action("GetImage", new { id = Model.RecipeId })' style="max-width: 400px;" />
+                    <br />
+                    <br />
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <input type="hidden" asp-for="RecipeId" />
+                    <div class="form-group">
+                        <label asp-for="Title"></label>
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
 
-            <div class="form-group">
-                <label asp-for="Description"></label>
-                <input asp-for="Description" class="form-control" />
+                    <div class="form-group">
+                        <label asp-for="Description"></label>
+                        <input asp-for="Description" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Instructions"></label>
+                        <textarea asp-for="Instructions" class="form-control" rows="10"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Image"></label>
+                        <input asp-for="Image" type="file" />
+                    </div>
+
+                </div>
             </div>
-
-            <div class="form-group">
-                <label asp-for="Instructions"></label>
-                <textarea asp-for="Instructions" class="form-control" rows="10"></textarea>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-success">Save</button>
+                <button type="reset" class="btn btn-danger">Reset</button>
             </div>
-
-            <div class="form-group">
-                <label asp-for="Image"></label>
-                <input asp-for="Image" type="file" />
-            </div>
-
-            <button type="submit" class="btn btn-success">Save</button>
-            <button type="reset" class="btn btn-danger">Reset</button>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>
