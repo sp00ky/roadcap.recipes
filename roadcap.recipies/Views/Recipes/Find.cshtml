@@ -53,10 +53,10 @@
                             @Html.DisplayFor(modelItem => item.Title)
                         </td>
                         <td>
-                            @item.Description.Substring(0, Math.Min(item.Description.Length, 100)) 
+                            <ellipsis display-string="@item.Description" display-length="100" /> 
                         </td>
                         <td>
-                            @item.Instructions.Substring(0, Math.Min(item.Instructions.Length, 100)) 
+                            <ellipsis display-string="@item.Instructions" display-length="100" />
                         </td>
                         <td>
                             <a asp-action="Print" asp-route-id="@item.RecipeId">Print</a> | 
