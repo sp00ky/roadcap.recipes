@@ -14,7 +14,10 @@
             </div>
             <div class="card-body pl-5 pr-5">
                 <div class="col-md-12">
-                    <img src='@Url.Action("GetImage", new { id = Model.RecipeId })' style="max-width: 400px;" />
+                    @if (action == "Edit" && Model.Image != null && Model.Image.Length > 0)
+                    {
+                        <img src='@Url.Action("GetImage", new { id = Model.RecipeId })' style="max-width: 400px;" />
+                    }
                     <br />
                     <br />
                     <div asp-validation-summary="ModelOnly"></div>

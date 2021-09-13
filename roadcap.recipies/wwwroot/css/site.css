@@ -248,3 +248,8 @@ html, h1, h2, h3, h4, h5, h6, a {
             color: #888;
             font-size: 16px;
         }
+
+pre {
+    font-family: "Segoe UI",Roboto,"Helvetica Neue",Arial;
+    font-size: 16px;
+}
